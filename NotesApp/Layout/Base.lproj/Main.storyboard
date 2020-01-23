@@ -7,16 +7,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Category-->
         <scene sceneID="te7-wg-o7u">
             <objects>
-                <tableViewController id="R1h-RJ-5a7" sceneMemberID="viewController">
+                <tableViewController id="R1h-RJ-5a7" customClass="CategoryTableViewController" customModule="NotesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bm8-3m-aiS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hle-AE-NhX">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="hle-AE-NhX">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hle-AE-NhX" id="ksJ-eT-vSG">
@@ -30,7 +30,15 @@
                             <outlet property="delegate" destination="R1h-RJ-5a7" id="LNs-Mp-xoO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Ox3-1b-DVQ"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" image="folder.circle.fill" catalog="system" id="QPI-cr-79T">
+                            <connections>
+                                <action selector="addCategory:" destination="R1h-RJ-5a7" id="679-uf-Hzp"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Category" id="Ox3-1b-DVQ"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nHm-Rb-kBy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -39,11 +47,15 @@
         <!--Navigation Controller-->
         <scene sceneID="HdL-bY-TTE">
             <objects>
-                <navigationController id="qGN-RV-d4G" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="qGN-RV-d4G" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="L7L-mq-4KH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ake-QW-X0Y">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="R1h-RJ-5a7" kind="relationship" relationship="rootViewController" id="JUA-6e-lgo"/>
                     </connections>
@@ -129,7 +141,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1602" y="125"/>
+            <point key="canvasLocation" x="2190" y="133"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="folder.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
 </document>

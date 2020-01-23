@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Category{
+class CategoryModel{
     internal init(title: String, notes: [Note]) {
         self.title = title
         self.notes = notes
@@ -16,4 +16,6 @@ class Category{
     
     var title : String
     var notes: [Note]
+    
+    static var categoryData = [CategoryModel]()
 }
