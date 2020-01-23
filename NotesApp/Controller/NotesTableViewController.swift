@@ -1,5 +1,5 @@
 //
-//  CategoryTableViewController.swift
+//  NotesTableViewController.swift
 //  NotesApp
 //
 //  Created by Evneet kaur on 2020-01-22.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CategoryTableViewController: UITableViewController {
+class NotesTableViewController: UITableViewController {
     
-    var currentIndx = -1
+    var categoryDelegate : CategoryTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,25 +26,23 @@ class CategoryTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return CategoryModel.categoryData.count
+        return 0
     }
 
-    
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell")
-        let name = CategoryModel.categoryData[indexPath.row].title
-        cell?.textLabel?.text = name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         // Configure the cell...
 
-        return cell!
+        return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -81,44 +79,38 @@ class CategoryTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-      
-        if let destination = segue.destination as? NotesTableViewController{
-            destination.categoryDelegate = self
-            
-            if let tableviewCell = sender as? UITableViewCell{
-                if let index = tableView.indexPath(for: tableviewCell)?.row{
-                    currentIndx = index
-                }
-            }
-        }
-        
     }
+    */
     
-    
-    
-    @IBAction func addCategory(_ sender: UIBarButtonItem) {
-        
-        let alert = UIAlertController(title: "Add Category", message: nil, preferredStyle: .alert)
-        alert.addTextField { (text) in
-            text.placeholder = "category"
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
-            let name = alert.textFields?.first?.text
-            let c = CategoryModel(title: name!, notes: [])
-            CategoryModel.categoryData.append(c)
-            self.tableView.reloadData()
-        }
-        alert.addAction(cancel)
-        alert.addAction(addAction)
-        self.present(alert, animated: true, completion: nil)
+    func updateNotes(note : Note){
+        CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes.append(note)
+        tableView.reloadData()
     }
-    
+//    func updateText(text : String){
+//
+//
+//
+//               guard FolderStructure.folderData[(folderDelegate?.curIndx)!].notes != [] && currentIndex != -1 else {
+//                   FolderStructure.folderData[(folderDelegate?.curIndx)!].notes.append(text)
+//                   tableView.reloadData()
+//                   folderDelegate?.reload()
+//                   return
+//               }
+//
+//
+//               FolderStructure.folderData[(folderDelegate?.curIndx)!].notes[currentIndex] = text
+//
+//               let indexPath = IndexPath(item: currentIndex, section: 0)
+//               tableView.reloadRows(at: [indexPath], with: .middle)
+//               currentIndex = -1
+//
+//         }
+
 }
