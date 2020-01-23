@@ -62,11 +62,11 @@
 		42437D9523D9480700E29B61 /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
+				42437DB623D94D9600E29B61 /* Layout */,
+				42437DB523D94D4F00E29B61 /* Controller */,
 				42437DAD23D948DE00E29B61 /* Model */,
 				42437D9623D9480700E29B61 /* AppDelegate.swift */,
 				42437D9823D9480700E29B61 /* SceneDelegate.swift */,
-				42437D9A23D9480700E29B61 /* ViewController.swift */,
-				42437D9C23D9480700E29B61 /* Main.storyboard */,
 				42437DA223D9480900E29B61 /* Assets.xcassets */,
 				42437DA423D9480900E29B61 /* LaunchScreen.storyboard */,
 				42437DA723D9480900E29B61 /* Info.plist */,
@@ -82,6 +82,22 @@
 				42437DB223D94CCD00E29B61 /* Category.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		42437DB523D94D4F00E29B61 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				42437D9A23D9480700E29B61 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		42437DB623D94D9600E29B61 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				42437D9C23D9480700E29B61 /* Main.storyboard */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
