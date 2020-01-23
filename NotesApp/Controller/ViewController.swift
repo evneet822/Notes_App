@@ -42,6 +42,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         desctxt.text = noteDetail?.desc
         convertDate(date: (noteDetail?.date)!)
         image_view.image = noteDetail?.image
+            lat = noteDetail?.latitude
+            long = noteDetail?.longitude
+            imageSelected = noteDetail?.image
         
         }
         
@@ -61,21 +64,26 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userlocation : CLLocation =  locations[0]
-        lat = userlocation.coordinate.latitude
-        long = userlocation.coordinate.longitude
+        if !objectSelected{
+            lat = userlocation.coordinate.latitude
+            long = userlocation.coordinate.longitude
+        }
+        
     }
    
     
     override func viewWillDisappear(_ animated: Bool) {
         
         
-        if !objectSelected{
+        
             let title = titletxt.text
             let desc = desctxt.text
             print(lat,long)
+        print(imageSelected?.size)
+    
             let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
             notesDelegate?.updateNotes(note: n)
-        }
+        
         
     }
     
