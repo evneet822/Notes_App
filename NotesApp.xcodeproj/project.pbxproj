@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42003EAD23DA4F77005CD8AA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42003EAC23DA4F77005CD8AA /* MapViewController.swift */; };
 		42437D9723D9480700E29B61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D9623D9480700E29B61 /* AppDelegate.swift */; };
 		42437D9923D9480700E29B61 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D9823D9480700E29B61 /* SceneDelegate.swift */; };
 		42437D9B23D9480700E29B61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437D9A23D9480700E29B61 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42003EAC23DA4F77005CD8AA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		42437D9323D9480700E29B61 /* NotesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42437D9623D9480700E29B61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42437D9823D9480700E29B61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				42437D9A23D9480700E29B61 /* ViewController.swift */,
 				42437DB723D9516800E29B61 /* CategoryTableViewController.swift */,
 				42437DB923D95D1F00E29B61 /* NotesTableViewController.swift */,
+				42003EAC23DA4F77005CD8AA /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				42437DBA23D95D1F00E29B61 /* NotesTableViewController.swift in Sources */,
 				42437D9B23D9480700E29B61 /* ViewController.swift in Sources */,
 				42437DB123D9495600E29B61 /* Notes.swift in Sources */,
+				42003EAD23DA4F77005CD8AA /* MapViewController.swift in Sources */,
 				42437D9723D9480700E29B61 /* AppDelegate.swift in Sources */,
 				42437D9923D9480700E29B61 /* SceneDelegate.swift in Sources */,
 				42437DA123D9480700E29B61 /* NotesApp.xcdatamodeld in Sources */,

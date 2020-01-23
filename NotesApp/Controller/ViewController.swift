@@ -80,8 +80,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         if objectSelected{
             let title = titletxt.text
                        let desc = desctxt.text
-                       print(lat,long)
-                   print(imageSelected?.size)
+//                       print(lat,long)
+//                   print(imageSelected?.size)
                
                        let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!)
                        notesDelegate?.updateNotes(note: n)
@@ -89,8 +89,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
             let title = titletxt.text
             let desc = desctxt.text
-            print(lat,long)
-        print(imageSelected?.size)
+//            print(lat,long)
+//        print(imageSelected?.size)
     
             let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
             notesDelegate?.updateNotes(note: n)

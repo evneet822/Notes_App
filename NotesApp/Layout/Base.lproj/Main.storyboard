@@ -105,7 +105,7 @@
             </objects>
             <point key="canvasLocation" x="1364" y="130"/>
         </scene>
-        <!--View Controller-->
+        <!--Details-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NotesApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -182,7 +182,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="3d0-Tq-3Eo"/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="en1-Pm-cDn"/>
+                        <barButtonItem title="Item" image="paperplane.fill" catalog="system" id="N50-a2-FSP">
+                            <connections>
+                                <segue destination="oR3-Mo-fuj" kind="show" id="wFU-qZ-tOl"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Details" id="3d0-Tq-3Eo"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="datelbl" destination="FDX-ff-BLJ" id="ksf-TZ-zxi"/>
                         <outlet property="desctxt" destination="3Pc-ns-2Z2" id="ko3-Wp-I4u"/>
@@ -195,9 +204,37 @@
             </objects>
             <point key="canvasLocation" x="2190" y="133"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ehA-K2-5h7">
+            <objects>
+                <viewController id="oR3-Mo-fuj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vsb-UI-YYJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBN-sS-Wx5">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vBN-sS-Wx5" firstAttribute="top" secondItem="uBB-hX-xCh" secondAttribute="top" id="8fp-a9-qrU"/>
+                            <constraint firstItem="uBB-hX-xCh" firstAttribute="bottom" secondItem="vBN-sS-Wx5" secondAttribute="bottom" id="dT9-o8-cOA"/>
+                            <constraint firstItem="uBB-hX-xCh" firstAttribute="trailing" secondItem="vBN-sS-Wx5" secondAttribute="trailing" id="mnO-tt-Rx7"/>
+                            <constraint firstItem="vBN-sS-Wx5" firstAttribute="leading" secondItem="uBB-hX-xCh" secondAttribute="leading" id="s8b-rv-df0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uBB-hX-xCh"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pwD-YU-c5J"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Wz-Eq-qfQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2980" y="133"/>
+        </scene>
     </scenes>
     <resources>
         <image name="folder.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="paperplane.fill" catalog="system" width="64" height="60"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
