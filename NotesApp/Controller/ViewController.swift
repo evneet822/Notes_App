@@ -21,6 +21,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     var notesDelegate: NotesTableViewController?
     var imageSelected : UIImage?
     var noteDetail : Note?
+    var createdDate : Date?
     var objectSelected = false
     var lat : CLLocationDegrees?
     var long : CLLocationDegrees?
@@ -45,6 +46,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             lat = noteDetail?.latitude
             long = noteDetail?.longitude
             imageSelected = noteDetail?.image
+            createdDate = noteDetail?.date
+            
         
         }
         
@@ -74,7 +77,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        
+        if objectSelected{
+            let title = titletxt.text
+                       let desc = desctxt.text
+                       print(lat,long)
+                   print(imageSelected?.size)
+               
+                       let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!)
+                       notesDelegate?.updateNotes(note: n)
+        }else{
         
             let title = titletxt.text
             let desc = desctxt.text
@@ -84,7 +95,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
             notesDelegate?.updateNotes(note: n)
         
-        
+        }
     }
     
 
