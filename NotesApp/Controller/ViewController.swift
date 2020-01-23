@@ -27,6 +27,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     var long : CLLocationDegrees?
     var imagePicker = UIImagePickerController()
     var locationManager = CLLocationManager()
+    var viewIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //                   print(imageSelected?.size)
                
                        let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!)
+            notesDelegate?.notesCurrentIndx = viewIndex
                        notesDelegate?.updateNotes(note: n)
         }else{
         
@@ -117,6 +119,13 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         datelbl.text = dateformatter.string(from: date)
         timelbl.text = hourformatter.string(from: date)
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  let destination = segue.destination as? MapViewController{
+            destination.notelatitude = lat
+            destination.notelongitude = long
+        }
     }
 }
 

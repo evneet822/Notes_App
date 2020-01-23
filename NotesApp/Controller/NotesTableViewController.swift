@@ -99,6 +99,7 @@ class NotesTableViewController: UITableViewController {
                     self.cellSelected = true
                     destination.objectSelected = true
                     destination.noteDetail = note1
+                    destination.viewIndex = index
                     notesCurrentIndx = index
                 }
             }
@@ -118,7 +119,7 @@ class NotesTableViewController: UITableViewController {
         
        
         
-        let notes :[Note] = []
+//        let notes :[Note] = []
         let note1 = CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes
 
         guard !note1.isEmpty && notesCurrentIndx != -1 else {

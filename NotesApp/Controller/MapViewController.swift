@@ -7,13 +7,44 @@
 //
 
 import UIKit
+import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController,CLLocationManagerDelegate {
+    
+    var notelatitude : CLLocationDegrees?
+    var notelongitude : CLLocationDegrees?
+    var locationmanager = CLLocationManager()
+    var detailDelegate : ViewController?
+    
+    @IBOutlet weak var mapview: MKMapView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+      
+        let latDelta: CLLocationDegrees = 10.0
+        let longDelta: CLLocationDegrees = 10.0
+        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+        let location = CLLocationCoordinate2D(latitude: notelatitude!, longitude: notelongitude!)
+        let region = MKCoordinateRegion(center: location, span: span)
+        mapview.setRegion(region, animated: true)
+        
+        let annotation = MKPointAnnotation()
+        annotation.title = "brampton City"
+        annotation.subtitle = "City of Dreams"
+        annotation.coordinate = location
+        mapview.addAnnotation(annotation)
+        
+        locationmanager.delegate = self
+        locationmanager.desiredAccuracy = kCLLocationAccuracyBest
+        locationmanager.requestWhenInUseAuthorization()
+        locationmanager.startUpdatingLocation()
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        detailDelegate?.objectSelected = true
     }
     
 

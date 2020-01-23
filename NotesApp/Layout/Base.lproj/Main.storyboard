@@ -204,10 +204,10 @@
             </objects>
             <point key="canvasLocation" x="2190" y="133"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="ehA-K2-5h7">
             <objects>
-                <viewController id="oR3-Mo-fuj" sceneMemberID="viewController">
+                <viewController id="oR3-Mo-fuj" customClass="MapViewController" customModule="NotesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vsb-UI-YYJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -226,6 +226,9 @@
                         <viewLayoutGuide key="safeArea" id="uBB-hX-xCh"/>
                     </view>
                     <navigationItem key="navigationItem" id="pwD-YU-c5J"/>
+                    <connections>
+                        <outlet property="mapview" destination="vBN-sS-Wx5" id="loy-fL-bmQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Wz-Eq-qfQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
