@@ -47,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42003EAB23DA2583005CD8AA /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				42437D9F23D9480700E29B61 /* NotesApp.xcdatamodeld */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		42437D8A23D9480700E29B61 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +74,7 @@
 		42437D9523D9480700E29B61 /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
+				42003EAB23DA2583005CD8AA /* Entity */,
 				42437DB623D94D9600E29B61 /* Layout */,
 				42437DB523D94D4F00E29B61 /* Controller */,
 				42437DAD23D948DE00E29B61 /* Model */,
@@ -74,7 +83,6 @@
 				42437DA223D9480900E29B61 /* Assets.xcassets */,
 				42437DA423D9480900E29B61 /* LaunchScreen.storyboard */,
 				42437DA723D9480900E29B61 /* Info.plist */,
-				42437D9F23D9480700E29B61 /* NotesApp.xcdatamodeld */,
 			);
 			path = NotesApp;
 			sourceTree = "<group>";
