@@ -91,6 +91,20 @@ class NotesTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if let destination = segue.destination as? ViewController{
             destination.notesDelegate = self
+            if let tablecell = sender as? UITableViewCell{
+                if let index = tableView.indexPath(for: tablecell)?.row{
+                    let note1 = CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes[index]
+                    destination.objectSelected = true
+                    destination.noteDetail = note1
+                }
+            }
+//            if let tableViewCell = sender as? UITableViewCell{
+//                               if let index = tableView.indexPath(for: tableViewCell)?.row{
+//
+//                                   detail.textString = FolderStructure.folderData[(folderDelegate?.curIndx)!].notes[index]
+//                                   currentIndex = index
+//                               }
+//                           }
         }
     }
     

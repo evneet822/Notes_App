@@ -13,11 +13,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     
     
+    @IBOutlet weak var timelbl: UILabel!
+    @IBOutlet weak var datelbl: UILabel!
     @IBOutlet weak var image_view: UIImageView!
     @IBOutlet weak var titletxt: UITextField!
     @IBOutlet weak var desctxt: UITextView!
     var notesDelegate: NotesTableViewController?
     var imageSelected : UIImage?
+    var noteDetail : Note?
+    var objectSelected = false
     var lat : CLLocationDegrees?
     var long : CLLocationDegrees?
     var imagePicker = UIImagePickerController()
@@ -31,6 +35,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        if objectSelected{
+        
+        titletxt.text = noteDetail?.title
+        desctxt.text = noteDetail?.desc
+        convertDate(date: (noteDetail?.date)!)
+        image_view.image = noteDetail?.image
+        
+        }
+        
         
     }
     
@@ -53,11 +67,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
    
     
     override func viewWillDisappear(_ animated: Bool) {
-        let title = titletxt.text
-        let desc = desctxt.text
-        print(lat,long)
-        let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
-        notesDelegate?.updateNotes(note: n)
+        
+        
+        if !objectSelected{
+            let title = titletxt.text
+            let desc = desctxt.text
+            print(lat,long)
+            let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
+            notesDelegate?.updateNotes(note: n)
+        }
+        
     }
     
 
@@ -69,6 +88,16 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion: nil)
         }
+    }
+    
+    func convertDate(date : Date) {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "EEE, MMM,dd"
+        let hourformatter = DateFormatter()
+        hourformatter.dateFormat = "h:mm a"
+        datelbl.text = dateformatter.string(from: date)
+        timelbl.text = hourformatter.string(from: date)
+        
     }
 }
 
