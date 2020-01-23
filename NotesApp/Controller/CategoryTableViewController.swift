@@ -101,6 +101,10 @@ class CategoryTableViewController: UITableViewController {
         
     }
     
+    func reload(){
+        tableView.reloadData()
+    }
+    
     
     
     @IBAction func addCategory(_ sender: UIBarButtonItem) {

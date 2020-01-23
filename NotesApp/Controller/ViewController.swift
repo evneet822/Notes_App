@@ -21,12 +21,20 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     var lat : CLLocationDegrees?
     var long : CLLocationDegrees?
     var imagePicker = UIImagePickerController()
+    var locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
     }
+    
+    
 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -36,16 +44,18 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
     }
     
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation: CLLocation = locations[0]
-        
-        lat = userLocation.coordinate.latitude
-        long = userLocation.coordinate.longitude
+        let userlocation : CLLocation =  locations[0]
+        lat = userlocation.coordinate.latitude
+        long = userlocation.coordinate.longitude
     }
+   
     
     override func viewWillDisappear(_ animated: Bool) {
         let title = titletxt.text
         let desc = desctxt.text
+        print(lat,long)
         let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
         notesDelegate?.updateNotes(note: n)
     }

@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="-411" y="133"/>
         </scene>
-        <!--Notes Table View Controller-->
+        <!--Notes-->
         <scene sceneID="LlL-O7-5Q6">
             <objects>
                 <tableViewController id="Tbd-zj-IJs" customClass="NotesTableViewController" customModule="NotesApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -90,7 +90,7 @@
                             <outlet property="delegate" destination="Tbd-zj-IJs" id="uPK-fe-hCu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="TGr-8H-8cg">
+                    <navigationItem key="navigationItem" title="Notes" id="TGr-8H-8cg">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.pencil" catalog="system" id="ycl-M6-sbE">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="show" id="Ri0-bK-cBB"/>
@@ -183,7 +183,7 @@
                     <connections>
                         <outlet property="desctxt" destination="3Pc-ns-2Z2" id="ko3-Wp-I4u"/>
                         <outlet property="image_view" destination="4rR-ju-6Ji" id="fHL-uP-sPz"/>
-                        <outlet property="titleFeild" destination="uuf-5d-ub1" id="z2b-0E-swD"/>
+                        <outlet property="titletxt" destination="uuf-5d-ub1" id="SDm-Zz-JF6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
