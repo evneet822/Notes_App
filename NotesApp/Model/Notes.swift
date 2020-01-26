@@ -8,10 +8,9 @@
 
 import Foundation
 import  PhotosUI
-import MapKit
 
 class Note{
-    internal init(title: String, desc: String, image: UIImage, latitude: CLLocationDegrees, longitude: CLLocationDegrees, date: Date) {
+    internal init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date) {
         self.title = title
         self.desc = desc
         self.image = image
@@ -23,8 +22,10 @@ class Note{
     var title :String
     var desc: String
     var image: UIImage
-    var latitude: CLLocationDegrees
-    var longitude : CLLocationDegrees
+    var latitude: Double
+    var longitude : Double
     var date : Date
+    
+//    static var notesdata = [Note]()
     
 }

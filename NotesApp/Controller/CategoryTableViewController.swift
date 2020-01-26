@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryTableViewController: UITableViewController {
     
     var currentIndx = -1
+    var count = 1
+    var dataSaved = false
+    var contextEnity : NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +24,20 @@ class CategoryTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appdelegate.persistentContainer.viewContext
+        contextEnity = context
+        
+        
+        cleardata()
+        clearCategoryEntity()
+        
+
+        load()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
+
+        
     }
 
     // MARK: - Table view data source
@@ -116,6 +134,8 @@ class CategoryTableViewController: UITableViewController {
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
             let name = alert.textFields?.first?.text
+            let entityCat = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: self.contextEnity!)
+            entityCat.setValue(name, forKey: "categoryName")
             let c = CategoryModel(title: name!, notes: [])
             CategoryModel.categoryData.append(c)
             self.tableView.reloadData()
@@ -124,5 +144,129 @@ class CategoryTableViewController: UITableViewController {
         alert.addAction(addAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    @objc func saveCoreData(){
+        
+        cleardata()
+        
+        for note in CategoryModel.categoryData {
+//             let entity = NSEntityDescription.insertNewObject(forEntityName: "NotesEntity", into: contextEnity!)
+            
+//            entity.setValue(note.title, forKey: "categoryName")
+            for detailnote in note.notes {
+                let entity = NSEntityDescription.insertNewObject(forEntityName: "NotesEntity", into: contextEnity!)
+                
+                entity.setValue(note.title, forKey: "noteCategory")
+
+                entity.setValue(detailnote.title, forKey: "notesTitle")
+                entity.setValue(detailnote.desc, forKey: "notesDesc")
+                entity.setValue(detailnote.date, forKey: "date")
+                entity.setValue(detailnote.latitude, forKey: "lat")
+                entity.setValue(detailnote.longitude, forKey: "long")
+                let imagedata = detailnote.image.pngData()
+                entity.setValue(imagedata, forKey: "image")
+            }
+        }
+        do{
+            try contextEnity?.save()
+        }catch{
+            print(error)
+        }
+    }
+    
+    func load(){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryEntity")
+        do{
+            var fetchednotes = [Note]()
+            let result = try contextEnity?.fetch(request)
+            if result is [NSManagedObject]{
+                for resultitem in result as! [NSManagedObject]{
+                    let cname = resultitem.value(forKey: "categoryName") as! String
+                    
+                    let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "NotesEntity")
+                    fetchrequest.predicate = NSPredicate(format: "noteCategory contains %@", cname)
+                    fetchrequest.returnsObjectsAsFaults = false
+                    
+                    do{
+                        let fetchresult = try contextEnity?.fetch(fetchrequest)
+                        if fetchresult is [NSManagedObject]{
+                            for result  in fetchresult as! [NSManagedObject]{
+                                let nName = result.value(forKey: "notesTitle") as! String
+                                let ndesc = result.value(forKey: "notesDesc") as! String
+                                let ndate = result.value(forKey: "date") as! Date
+                                let nlat = result.value(forKey: "lat") as! Double
+                                let nlong = result.value(forKey: "long") as! Double
+                                let data = result.value(forKey: "image") as! Data
+                                let nimage = UIImage(data: data)
+                                
+                                let n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate)
+                                fetchednotes.append(n)
+                            }
+                        }
+                        
+                    }catch{
+                        print(error)
+                    }
+                    
+                   
+                    
+//                    CategoryModel.categoryData.append(CategoryModel(title: cname, notes: []))
+                    
+//                    print(resultitem.value(forKey: "categoryName") as! String)
+//                    print(resultitem.value(forKey: "notesTitle") as! String)
+//                    print(resultitem.value(forKey: "notesDesc") as! String)
+//                    print("\(resultitem.value(forKey: "date") as! Date)")
+//                    print("\(resultitem.value(forKey: "lat") as! Double)")
+//                    print("\(resultitem.value(forKey: "long") as! Double)")
+                    CategoryModel.categoryData.append(CategoryModel(title: cname, notes: fetchednotes))
+                    fetchednotes = []
+                    
+                }
+            }
+        }catch{
+            print(error)
+        }
+        do{
+            try contextEnity?.save()
+        }catch{
+            print(error)
+        }
+    }
+    
+    func cleardata() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "NotesEntity")
+        do{
+            let result = try contextEnity?.fetch(request)
+            if result is [NSManagedObject]{
+                for resultitem in result as! [NSManagedObject]{
+                    contextEnity?.delete(resultitem)
+                }
+            }
+        }catch{
+            print(error)
+        }
+        do{
+            try contextEnity?.save()
+        }catch{
+            print(error)
+        }
+    }
+    
+    func clearCategoryEntity() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryEntity")
+        do{
+            let result = try contextEnity?.fetch(request)
+            if result  is [NSManagedObject]{
+                for item in result as! [NSManagedObject] {
+                    contextEnity?.delete(item)
+                }
+            }
+        }catch{
+            print(error)
+        }
+    }
+    
+    
+    
     
 }

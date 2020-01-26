@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="NotesEntity" representedClassName="NotesEntity" syncable="YES" codeGenerationType="class">
+    <entity name="CategoryEntity" representedClassName="CategoryEntity" syncable="YES" codeGenerationType="class">
         <attribute name="categoryName" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="NotesEntity" representedClassName="NotesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="noteCategory" optional="YES" attributeType="String"/>
         <attribute name="notesDesc" optional="YES" attributeType="String"/>
         <attribute name="notesTitle" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="NotesEntity" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="CategoryEntity" positionX="-63" positionY="36" width="128" height="58"/>
     </elements>
 </model>

@@ -138,6 +138,10 @@ class NotesTableViewController: UITableViewController {
 
         
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        categoryDelegate?.saveCoredata()
+//    }
 //    func updateText(text : String){
 //
 //
