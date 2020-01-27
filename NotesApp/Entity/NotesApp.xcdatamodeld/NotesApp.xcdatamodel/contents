@@ -11,9 +11,10 @@
         <attribute name="noteCategory" optional="YES" attributeType="String"/>
         <attribute name="notesDesc" optional="YES" attributeType="String"/>
         <attribute name="notesTitle" optional="YES" attributeType="String"/>
+        <attribute name="recordedUrl" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="NotesEntity" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="CategoryEntity" positionX="-63" positionY="36" width="128" height="58"/>
+        <element name="NotesEntity" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

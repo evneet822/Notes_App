@@ -93,27 +93,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
    
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//
-//        if objectSelected{
-//            let title = titletxt.text
-//                       let desc = desctxt.text
-//
-//                       let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!, recordedUrl: recordUrl!)
-//            notesDelegate?.notesCurrentIndx = viewIndex
-//                       notesDelegate?.updateNotes(note: n)
-//        }else{
-//
-//            let title = titletxt.text
-//            let desc = desctxt.text
-//
-//            let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date(),recordedUrl: recordUrl!)
-//            notesDelegate?.updateNotes(note: n)
-//
-//        }
-//    }
-    
-    
     @IBAction func saveNote(_ sender: UIButton) {
         if titletxt.text == "" && desctxt.text == "description"{
             print("inside alert")
@@ -221,6 +200,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     func startRecording() {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("\(titletxt.text).m4a")
         recordUrl = audioFilename
+        print("recording saved with file name \(recordUrl?.absoluteString)")
 
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),

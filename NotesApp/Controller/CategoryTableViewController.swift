@@ -33,9 +33,9 @@ class CategoryTableViewController: UITableViewController {
 //        clearCategoryEntity()
 //        
 //
-//        load()
+        load()
 //
-//        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
 
         
     }
@@ -156,17 +156,28 @@ class CategoryTableViewController: UITableViewController {
             
 //            entity.setValue(note.title, forKey: "categoryName")
             for detailnote in note.notes {
+//                let urlString : String?
                 let entity = NSEntityDescription.insertNewObject(forEntityName: "NotesEntity", into: contextEnity!)
                 
                 entity.setValue(note.title, forKey: "noteCategory")
-
                 entity.setValue(detailnote.title, forKey: "notesTitle")
                 entity.setValue(detailnote.desc, forKey: "notesDesc")
                 entity.setValue(detailnote.date, forKey: "date")
                 entity.setValue(detailnote.latitude, forKey: "lat")
                 entity.setValue(detailnote.longitude, forKey: "long")
-                let imagedata = detailnote.image!.pngData()
-                entity.setValue(imagedata, forKey: "image")
+                
+                if detailnote.image != nil{
+                    let imagedata = detailnote.image?.pngData()
+                    entity.setValue(imagedata, forKey: "image")
+                }
+                
+                if detailnote.recordedUrl != nil{
+                    print("when saved  \(detailnote.recordedUrl)")
+                   let  urlString = detailnote.recordedUrl!.absoluteString
+                    entity.setValue(urlString, forKey: "recordedUrl")
+                }
+                
+                
             }
         }
         do{
@@ -193,15 +204,39 @@ class CategoryTableViewController: UITableViewController {
                         let fetchresult = try contextEnity?.fetch(fetchrequest)
                         if fetchresult is [NSManagedObject]{
                             for result  in fetchresult as! [NSManagedObject]{
+                                var n : Note
+                                var nurl : URL?
                                 let nName = result.value(forKey: "notesTitle") as! String
                                 let ndesc = result.value(forKey: "notesDesc") as! String
                                 let ndate = result.value(forKey: "date") as! Date
                                 let nlat = result.value(forKey: "lat") as! Double
                                 let nlong = result.value(forKey: "long") as! Double
-                                let data = result.value(forKey: "image") as! Data
-                                let nimage = UIImage(data: data)
+                                
+                                if result.value(forKey: "image") != nil && result.value(forKey: "recordedUrl") == nil{
+                                    let data = result.value(forKey: "image") as? Data
+                                    let nimage = UIImage(data: data!)
+                                    n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, image: nimage!)
+                                }
+                                
+                               else if result.value(forKey: "recordedUrl") != nil && result.value(forKey: "image") == nil{
+                                    let urlstring = result.value(forKey: "recordedUrl") as? String
+                                     nurl = URL(fileURLWithPath: urlstring ?? "")
+                                    print("only record file  \(urlstring!)")
+                                    n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, record: nurl!)
+                                }else{
+                                    let data = result.value(forKey: "image") as? Data
+                                    let nimage = UIImage(data: data!)
+                                    let urlstring = result.value(forKey: "recordedUrl") as? String
+                                    nurl = URL(fileURLWithPath: urlstring ?? "")
+                                    print("both image and url  \(urlstring!)")
+                                    
+                                    n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate, recordedUrl: nurl!)
+                                }
+                                
+                                
                                 
 //                                let n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate)
+                                fetchednotes.append(n)
 //                                fetchednotes.append(n)
                             }
                         }
