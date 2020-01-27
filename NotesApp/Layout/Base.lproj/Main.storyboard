@@ -160,6 +160,14 @@
                                     <constraint firstAttribute="height" constant="120" id="9aq-I0-gPp"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pce-O4-oz4">
+                                <rect key="frame" x="150" y="548" width="75" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Record"/>
+                                <connections>
+                                    <action selector="recordAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eG8-Tj-R9c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -171,8 +179,11 @@
                             <constraint firstItem="NLa-QV-xq1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="9qx-27-ax6"/>
                             <constraint firstItem="uuf-5d-ub1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="A3i-3i-nqJ"/>
                             <constraint firstItem="4rR-ju-6Ji" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="NYB-KW-Brf"/>
+                            <constraint firstItem="Pce-O4-oz4" firstAttribute="top" secondItem="4rR-ju-6Ji" secondAttribute="bottom" constant="20" id="Pdo-rl-akx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pce-O4-oz4" secondAttribute="trailing" constant="150" id="Tcf-d8-06p"/>
                             <constraint firstItem="3Pc-ns-2Z2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="XpX-tG-fPh"/>
                             <constraint firstItem="4rR-ju-6Ji" firstAttribute="top" secondItem="NLa-QV-xq1" secondAttribute="bottom" constant="20" id="Yfe-je-Juu"/>
+                            <constraint firstItem="Pce-O4-oz4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="azc-Ta-08Q"/>
                             <constraint firstItem="zAB-UD-TJh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="dx1-iU-5r0"/>
                             <constraint firstItem="FDX-ff-BLJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="fbh-n0-LsP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NLa-QV-xq1" secondAttribute="trailing" constant="30" id="gcH-9g-s1H"/>
@@ -196,6 +207,7 @@
                         <outlet property="datelbl" destination="FDX-ff-BLJ" id="ksf-TZ-zxi"/>
                         <outlet property="desctxt" destination="3Pc-ns-2Z2" id="ko3-Wp-I4u"/>
                         <outlet property="image_view" destination="4rR-ju-6Ji" id="fHL-uP-sPz"/>
+                        <outlet property="recordLbl" destination="Pce-O4-oz4" id="KSr-bF-5HC"/>
                         <outlet property="timelbl" destination="zAB-UD-TJh" id="O23-9M-4Ob"/>
                         <outlet property="titletxt" destination="uuf-5d-ub1" id="SDm-Zz-JF6"/>
                     </connections>

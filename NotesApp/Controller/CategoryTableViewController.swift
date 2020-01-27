@@ -29,13 +29,13 @@ class CategoryTableViewController: UITableViewController {
         contextEnity = context
         
         
-        cleardata()
-        clearCategoryEntity()
-        
-
-        load()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
+//        cleardata()
+//        clearCategoryEntity()
+//        
+//
+//        load()
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(saveCoreData), name: UIApplication.willResignActiveNotification, object: nil)
 
         
     }
@@ -199,8 +199,8 @@ class CategoryTableViewController: UITableViewController {
                                 let data = result.value(forKey: "image") as! Data
                                 let nimage = UIImage(data: data)
                                 
-                                let n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate)
-                                fetchednotes.append(n)
+//                                let n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate)
+//                                fetchednotes.append(n)
                             }
                         }
                         

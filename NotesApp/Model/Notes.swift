@@ -10,14 +10,24 @@ import Foundation
 import  PhotosUI
 
 class Note{
-    internal init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date) {
+    internal init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date, recordedUrl: URL) {
         self.title = title
         self.desc = desc
         self.image = image
         self.latitude = latitude
         self.longitude = longitude
         self.date = date
+        self.recordedUrl = recordedUrl
     }
+    
+//     init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date) {
+//        self.title = title
+//        self.desc = desc
+//        self.image = image
+//        self.latitude = latitude
+//        self.longitude = longitude
+//        self.date = date
+//    }
     
     var title :String
     var desc: String
@@ -25,6 +35,8 @@ class Note{
     var latitude: Double
     var longitude : Double
     var date : Date
+    var recordedUrl : URL
+
     
 //    static var notesdata = [Note]()
     

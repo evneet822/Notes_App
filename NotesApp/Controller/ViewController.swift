@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import AVFoundation
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate{
+class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate,AVAudioRecorderDelegate{
     
     
     
@@ -18,6 +19,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     @IBOutlet weak var image_view: UIImageView!
     @IBOutlet weak var titletxt: UITextField!
     @IBOutlet weak var desctxt: UITextView!
+    @IBOutlet weak var recordLbl: UIButton!
     var notesDelegate: NotesTableViewController?
     var imageSelected : UIImage?
     var noteDetail : Note?
@@ -28,6 +30,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     var imagePicker = UIImagePickerController()
     var locationManager = CLLocationManager()
     var viewIndex = -1
+//    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var count = 0
+    var recordUrl : URL?
+    var player:AVAudioPlayer?
+    var playerItem:AVPlayerItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +56,39 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             long = noteDetail?.longitude
             imageSelected = noteDetail?.image
             createdDate = noteDetail?.date
+            recordUrl = noteDetail?.recordedUrl
+            recordLbl.setTitle("Play", for: .normal)
+            let s = recordUrl?.absoluteString
+            print(s!)
+            
+//            let playerItem:AVPlayerItem = AVPlayerItem(url: recordUrl!)
+//            player = AVPlayer(playerItem: playerItem)
+//
+//            let playerLayer=AVPlayerLayer(player: player!)
+//            playerLayer.frame=CGRect(x:0, y:0, width:10, height:30)
+//            self.view.layer.addSublayer(playerLayer)
             
         
         }
         
-        
+//        recordingSession = AVAudioSession.sharedInstance()
+//
+//        do {
+//            try recordingSession.setCategory(.playAndRecord, mode: .default)
+//            try recordingSession.setActive(true)
+//            recordingSession.requestRecordPermission() { [unowned self] allowed in
+//                DispatchQueue.main.async {
+//                    if allowed {
+//                        print("allow")
+////                        self.loadRecordingUI()
+//                    } else {
+//                        // failed to record!
+//                    }
+//                }
+//            }
+//        } catch {
+//            // failed to record!
+//        }
     }
     
     
@@ -84,7 +120,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //                       print(lat,long)
 //                   print(imageSelected?.size)
                
-                       let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!)
+                       let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!, recordedUrl: recordUrl!)
             notesDelegate?.notesCurrentIndx = viewIndex
                        notesDelegate?.updateNotes(note: n)
         }else{
@@ -94,7 +130,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //            print(lat,long)
 //        print(imageSelected?.size)
     
-            let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date())
+            let n = Note(title: title!, desc: desc!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date(),recordedUrl: recordUrl!)
             notesDelegate?.updateNotes(note: n)
         
         }
@@ -127,5 +163,71 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             destination.notelongitude = long
         }
     }
+    
+    @IBAction func recordAction(_ sender: UIButton) {
+        
+        if recordLbl.titleLabel?.text == "Record" {
+            startRecording()
+        }else if recordLbl.titleLabel?.text == "Stop"{
+            finishRecording(success: true)
+        }else if recordLbl.titleLabel?.text == "Play"{
+            do{
+                player = try AVAudioPlayer(contentsOf: recordUrl!)
+                player?.play()
+            }catch{
+                print("not played")
+            }
+        }
+        
+//        if audioRecorder == nil{
+//            startRecording()
+//        }else{
+//            finishRecording(success: true)
+//        }
+        
+    }
+    func startRecording() {
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(titletxt.text).m4a")
+        recordUrl = audioFilename
+
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+
+        do {
+            
+            print("recording started")
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.record()
+            
+            recordLbl.setTitle("Stop", for: .normal)
+
+//            recordButton.setTitle("Tap to Stop", for: .normal)
+        } catch {
+            finishRecording(success: false)
+        }
+    }
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    func finishRecording(success: Bool) {
+        print("recording ended")
+        audioRecorder.stop()
+        audioRecorder = nil
+        recordLbl.setTitle("Record", for: .normal)
+
+//        if success {
+//            recordButton.setTitle("Tap to Re-record", for: .normal)
+//        } else {
+//            recordButton.setTitle("Tap to Record", for: .normal)
+//            // recording failed :(
+//        }
+    }
+    
 }
 
