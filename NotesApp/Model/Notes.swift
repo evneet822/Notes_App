@@ -10,7 +10,7 @@ import Foundation
 import  PhotosUI
 
 class Note{
-    internal init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date, recordedUrl: URL) {
+     init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date, recordedUrl: URL) {
         self.title = title
         self.desc = desc
         self.image = image
@@ -20,22 +20,41 @@ class Note{
         self.recordedUrl = recordedUrl
     }
     
-//     init(title: String, desc: String, image: UIImage, latitude: Double, longitude: Double, date: Date) {
-//        self.title = title
-//        self.desc = desc
-//        self.image = image
-//        self.latitude = latitude
-//        self.longitude = longitude
-//        self.date = date
-//    }
+    init(title:String, desc: String, latitude: Double, longitude: Double,date : Date,image: UIImage) {
+       self.title = title
+       self.desc = desc
+       self.latitude = latitude
+       self.longitude = longitude
+       self.date = date
+        self.image = image
+   }
+    
+    init(title:String, desc: String, latitude: Double, longitude: Double,date : Date) {
+        self.title = title
+        self.desc = desc
+        self.latitude = latitude
+        self.longitude = longitude
+        self.date = date
+    }
+    
+    init(title:String, desc: String, latitude: Double, longitude: Double,date : Date,record: URL) {
+        self.title = title
+        self.desc = desc
+        self.latitude = latitude
+        self.longitude = longitude
+        self.date = date
+        self.recordedUrl = record
+    }
+    
+    
     
     var title :String
     var desc: String
-    var image: UIImage
+    var image: UIImage?
     var latitude: Double
     var longitude : Double
     var date : Date
-    var recordedUrl : URL
+    var recordedUrl : URL?
 
     
 //    static var notesdata = [Note]()

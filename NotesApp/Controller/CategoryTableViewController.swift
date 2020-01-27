@@ -113,6 +113,8 @@ class CategoryTableViewController: UITableViewController {
             if let tableviewCell = sender as? UITableViewCell{
                 if let index = tableView.indexPath(for: tableviewCell)?.row{
                     currentIndx = index
+                    destination.notesCurrentIndx = index
+                    
                 }
             }
         }
@@ -163,7 +165,7 @@ class CategoryTableViewController: UITableViewController {
                 entity.setValue(detailnote.date, forKey: "date")
                 entity.setValue(detailnote.latitude, forKey: "lat")
                 entity.setValue(detailnote.longitude, forKey: "long")
-                let imagedata = detailnote.image.pngData()
+                let imagedata = detailnote.image!.pngData()
                 entity.setValue(imagedata, forKey: "image")
             }
         }

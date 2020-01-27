@@ -13,6 +13,7 @@ class NotesTableViewController: UITableViewController {
     var categoryDelegate : CategoryTableViewController?
     var cellSelected = false
     var notesCurrentIndx = -1
+    var notesSelectedIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,10 +98,11 @@ class NotesTableViewController: UITableViewController {
                 if let index = tableView.indexPath(for: tablecell)?.row{
                     let note1 = CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes[index]
                     self.cellSelected = true
+                    self.notesSelectedIndex = index
                     destination.objectSelected = true
                     destination.noteDetail = note1
                     destination.viewIndex = index
-                    notesCurrentIndx = index
+//                    notesCurrentIndx = index
                 }
             }
 //            if let tableViewCell = sender as? UITableViewCell{
@@ -113,31 +115,39 @@ class NotesTableViewController: UITableViewController {
         }
     }
     
-    
-    func updateNotes(note : Note){
-        
-        
-       
-        
-//        let notes :[Note] = []
-        let note1 = CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes
-
-        guard !note1.isEmpty && notesCurrentIndx != -1 else {
-            CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes.append(note)
-            tableView.reloadData()
-            categoryDelegate?.reload()
-            return
-        }
-
-
-
-        CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes[notesCurrentIndx] = note
-        let indexpath = IndexPath(item: notesCurrentIndx, section: 0)
-        tableView.reloadRows(at: [indexpath], with: .middle)
-        notesCurrentIndx = -1
-
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        categoryDelegate?.reload()
     }
+    
+    func notesReload(){
+        tableView.reloadData()
+    }
+    
+    
+//    func updateNotes(note : Note){
+//        
+//        
+//       
+//        
+////        let notes :[Note] = []
+//        let note1 = CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes
+//
+//        guard !note1.isEmpty && notesCurrentIndx != -1 else {
+//            CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes.append(note)
+//            tableView.reloadData()
+//            categoryDelegate?.reload()
+//            return
+//        }
+//
+//
+//
+//        CategoryModel.categoryData[(categoryDelegate?.currentIndx)!].notes[notesCurrentIndx] = note
+//        let indexpath = IndexPath(item: notesCurrentIndx, section: 0)
+//        tableView.reloadRows(at: [indexpath], with: .middle)
+//        notesCurrentIndx = -1
+//
+//        
+//    }
     
 //    override func viewWillDisappear(_ animated: Bool) {
 //        categoryDelegate?.saveCoredata()
