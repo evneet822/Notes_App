@@ -61,6 +61,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         long = noteDetail?.longitude
         createdDate = noteDetail?.date
             titletxt.isUserInteractionEnabled = false
+            counterlbl.isHidden = true
+            minslbl.isHidden = true
             
             if noteDetail?.image != nil{
                 image_view.image = noteDetail?.image
