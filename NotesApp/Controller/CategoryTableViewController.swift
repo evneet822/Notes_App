@@ -29,8 +29,8 @@ class CategoryTableViewController: UITableViewController {
         contextEnity = context
         
         
-//        cleardata()
-//        clearCategoryEntity()
+        cleardata()
+        clearCategoryEntity()
 //        
 //
         load()

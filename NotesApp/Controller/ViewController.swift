@@ -14,6 +14,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     
     
+    @IBOutlet weak var minslbl: UILabel!
+    @IBOutlet weak var counterlbl: UILabel!
     @IBOutlet weak var edittimelbl: UILabel!
     @IBOutlet weak var editdatelbl: UILabel!
     @IBOutlet weak var timelbl: UILabel!
@@ -36,6 +38,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //    var recordUrl : URL?
     var player:AVAudioPlayer?
     var audioFilename : URL?
+    var counter = 0
+    var mins = 0
+    var timer = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +82,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             
             
           }
+        
+        counterlbl.text = "\(counter)"
+        minslbl.text = "\(mins)."
         
     }
     
@@ -245,12 +253,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 
         audioFilename = getDocumentsDirectory().appendingPathComponent("\(titletxt.text!).m4a")
         if recordLbl.titleLabel?.text == "Record" {
+            
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updatetimer), userInfo: nil, repeats: true)
              
             print(" created file \(audioFilename!)")
             startRecording()
             
             
         }else if recordLbl.titleLabel?.text == "Stop"{
+            timer.invalidate()
             finishRecording(success: true)
         }else if recordLbl.titleLabel?.text == "Play"{
             do{
@@ -310,6 +321,17 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         audioRecorder = nil
         recordLbl.setTitle("Record", for: .normal)
 
+    }
+    
+    @objc func updatetimer() {
+        counter = counter + 1
+        counterlbl.text = "\(counter)"
+        if counter == 60{
+            mins = mins + 1
+            minslbl.text = "\(mins)."
+            counter = 0
+        }
+        
     }
     
    
