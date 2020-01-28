@@ -57,6 +57,7 @@ class CategoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell")
         let name = CategoryModel.categoryData[indexPath.row].title
         cell?.textLabel?.text = name
+        cell?.detailTextLabel?.text = "notes \(CategoryModel.categoryData[indexPath.row].notes.count)"
 
         // Configure the cell...
 
@@ -135,12 +136,24 @@ class CategoryTableViewController: UITableViewController {
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            
             let name = alert.textFields?.first?.text
-            let entityCat = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: self.contextEnity!)
-            entityCat.setValue(name, forKey: "categoryName")
-            let c = CategoryModel(title: name!, notes: [])
-            CategoryModel.categoryData.append(c)
-            self.tableView.reloadData()
+            
+            if name == ""{
+                
+                let alertc = UIAlertController(title: "Empty", message: nil, preferredStyle: .alert)
+                let okA = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertc.addAction(okA)
+                self.present(alertc, animated: true, completion: nil)
+                
+            }else{
+                let entityCat = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: self.contextEnity!)
+                           entityCat.setValue(name, forKey: "categoryName")
+                           let c = CategoryModel(title: name!, notes: [])
+                           CategoryModel.categoryData.append(c)
+                           self.tableView.reloadData()
+            }
+           
         }
         alert.addAction(cancel)
         alert.addAction(addAction)
@@ -173,8 +186,12 @@ class CategoryTableViewController: UITableViewController {
                 
                 if detailnote.recordedUrl != nil{
                     print("when saved  \(detailnote.recordedUrl)")
-                   let  urlString = detailnote.recordedUrl!.absoluteString
+                   let  urlString = "\(detailnote.recordedUrl!)"
                     entity.setValue(urlString, forKey: "recordedUrl")
+                }
+                
+                if detailnote.editeddate != nil{
+                    entity.setValue(detailnote.editeddate, forKey: "editedDate")
                 }
                 
                 
@@ -205,7 +222,7 @@ class CategoryTableViewController: UITableViewController {
                         if fetchresult is [NSManagedObject]{
                             for result  in fetchresult as! [NSManagedObject]{
                                 var n : Note
-                                var nurl : URL?
+//                                var nurl : URL?
                                 let nName = result.value(forKey: "notesTitle") as! String
                                 let ndesc = result.value(forKey: "notesDesc") as! String
                                 let ndate = result.value(forKey: "date") as! Date
@@ -213,26 +230,62 @@ class CategoryTableViewController: UITableViewController {
                                 let nlong = result.value(forKey: "long") as! Double
                                 
                                 if result.value(forKey: "image") != nil && result.value(forKey: "recordedUrl") == nil{
+                                    
                                     let data = result.value(forKey: "image") as? Data
                                     let nimage = UIImage(data: data!)
+                                    
+                                    if result.value(forKey: "editedDate") != nil{
+                                        let edate = result.value(forKey: "editedDate") as! Date
+                                        
+                                        n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, image: nimage!, editdate: edate)
+                                }else{
                                     n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, image: nimage!)
                                 }
-                                
+                            }
+                                    
+                
                                else if result.value(forKey: "recordedUrl") != nil && result.value(forKey: "image") == nil{
+                                    
+                                    
                                     let urlstring = result.value(forKey: "recordedUrl") as? String
-                                     nurl = URL(fileURLWithPath: urlstring ?? "")
+                                      let nurl = URL(fileURLWithPath: urlstring ?? "")
                                     print("only record file  \(urlstring!)")
-                                    n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, record: nurl!)
-                                }else{
+                                    
+                                    if result.value(forKey: "editedDate") != nil{
+                                        let edate = result.value(forKey: "editedDate") as! Date
+                                        n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, record: nurl, editdate: edate)
+                                    }else{
+                                    
+                                    n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, record: nurl)
+                                   }
+                                }
+                                else if result.value(forKey: "recordedUrl") == nil && result.value(forKey: "image") == nil{
+                                    if result.value(forKey: "editedDate") != nil{
+                                        let edate = result.value(forKey: "editedDate") as! Date
+                                        n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate, editdate: edate)
+                                    }
+                                    else{
+                                        n = Note(title: nName, desc: ndesc, latitude: nlat, longitude: nlong, date: ndate)
+                                    }
+                                }
+                                
+                                
+                                else{
                                     let data = result.value(forKey: "image") as? Data
                                     let nimage = UIImage(data: data!)
                                     let urlstring = result.value(forKey: "recordedUrl") as? String
-                                    nurl = URL(fileURLWithPath: urlstring ?? "")
-                                    print("both image and url  \(urlstring!)")
-                                    
-                                    n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate, recordedUrl: nurl!)
-                                }
                                 
+                                     let nurl = URL(fileURLWithPath: urlstring ?? "")
+                                    print("both image and url  \(urlstring)")
+                                    
+                                    if result.value(forKey: "editedDate") != nil{
+                                        let edate = result.value(forKey: "editedDate") as! Date
+                                        n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate, recordedUrl: nurl, editdate: edate)
+                                    }else{
+                                    
+                                    n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate, recordedUrl: nurl as URL)
+                                }
+                                }
                                 
                                 
 //                                let n = Note(title: nName, desc: ndesc, image: nimage!, latitude: nlat, longitude: nlong, date: ndate)

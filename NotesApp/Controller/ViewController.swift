@@ -14,6 +14,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     
     
+    @IBOutlet weak var edittimelbl: UILabel!
+    @IBOutlet weak var editdatelbl: UILabel!
     @IBOutlet weak var timelbl: UILabel!
     @IBOutlet weak var datelbl: UILabel!
     @IBOutlet weak var image_view: UIImageView!
@@ -31,8 +33,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     var locationManager = CLLocationManager()
     var viewIndex = -1
     var audioRecorder: AVAudioRecorder!
-    var recordUrl : URL?
+//    var recordUrl : URL?
     var player:AVAudioPlayer?
+    var audioFilename : URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,24 +51,33 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         titletxt.text = noteDetail?.title
         desctxt.text = noteDetail?.desc
         convertDate(date: (noteDetail?.date)!)
+//        converteditDate(date: (noteDetail?.editeddate)!)
         lat = noteDetail?.latitude
         long = noteDetail?.longitude
         createdDate = noteDetail?.date
+            titletxt.isUserInteractionEnabled = false
             
             if noteDetail?.image != nil{
                 image_view.image = noteDetail?.image
                 imageSelected = noteDetail?.image
             }
             if noteDetail?.recordedUrl != nil{
-                recordUrl = noteDetail?.recordedUrl
+                audioFilename = noteDetail!.recordedUrl
+//                print("\(noteDetail?.recordedUrl)")
+                print(" saved file \(audioFilename!)")
+//                let path = audioFilename?.path
                 recordLbl.setTitle("Play", for: .normal)
-                let s = recordUrl?.absoluteString
-                print(s!)
+//                let s = recordUrl!.absoluteString
+//                print(s)
+            }
+            if noteDetail?.editeddate != nil{
+                converteditDate(date: (noteDetail?.editeddate)!)
             }
             
             
             
           }
+        
     }
     
     
@@ -94,6 +106,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
    
     
     @IBAction func saveNote(_ sender: UIButton) {
+        
+        
         if titletxt.text == "" && desctxt.text == "description"{
             print("inside alert")
             let alert = UIAlertController(title: "Empty Feilds", message: "Please fill the required feilds", preferredStyle: .alert)
@@ -107,45 +121,80 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         }else{
             
             print("inside else")
-                if imageSelected != nil && recordUrl == nil{
+                if imageSelected != nil && audioFilename == nil{
                     let title = titletxt.text
                     let desc = desctxt.text
                         
-                    let nimage = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: Date(), image: imageSelected!)
+//                    let nimage = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: Date(), image: imageSelected!)
                     if objectSelected{
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = nimage
+                        
+//                        noteDetail = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: createdDate!, image: imageSelected!)
+                        
+                        noteDetail = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: createdDate!, image: imageSelected!, editdate: Date())
+                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
                     }else{
-                    
-                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(nimage)
+                    noteDetail = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: Date(), image: imageSelected!)
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(noteDetail!)
                     }
             
-                }else if recordUrl != nil && imageSelected == nil{
+                }else if audioFilename != nil && imageSelected == nil{
                     let t = titletxt.text
                     let d = desctxt.text
                                
-                    let nr = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: Date(), record: recordUrl!)
+//                    let nr = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: Date(), record: recordUrl!)
                     
                     if objectSelected{
                         
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = nr
+//                        noteDetail = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: createdDate!, record: audioFilename!);
+                        
+                       noteDetail = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: createdDate!, record: audioFilename!, editdate: Date())
+                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
+                        
                         
                     }else{
+                        
+                        noteDetail = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: Date(), record: audioFilename!)
                     
-                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(nr)
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(noteDetail!)
                     }
             
+                }else if audioFilename == nil && imageSelected == nil{
+                 let t1 = titletxt.text
+                 let d1 = desctxt.text
+                    
+//                    let n1 = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: Date())
+                    
+                    if objectSelected{
+//                        noteDetail = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: createdDate!)
+                        
+                        noteDetail = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: createdDate!, editdate: Date())
+                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
+                    }else{
+                         noteDetail = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: Date())
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(noteDetail!)
+                    }
+                    
+                    
                 }else {
                     let tt = titletxt.text
                     let dd = desctxt.text
                                
-                    let nn = Note(title: tt!, desc: dd!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date(), recordedUrl: recordUrl!)
+//                    let nn = Note(title: tt!, desc: dd!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date(), recordedUrl: recordUrl!)
                     
                     if objectSelected{
                         
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = nn
+//                        noteDetail = Note(title: tt!, desc: dd!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!, recordedUrl: audioFilename!)
+                        
+                        
+                        noteDetail = Note(title: tt!, desc: dd!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!, recordedUrl: audioFilename!, editdate: Date())
+                        
+                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
                         
                     }else{
-                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(nn)
+                        
+                        noteDetail = Note(title: tt!, desc: dd!, image: imageSelected!, latitude: lat!, longitude: long!, date: Date(), recordedUrl: audioFilename!)
+                        
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(noteDetail!)
                    }
              }
           }
@@ -168,8 +217,20 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         dateformatter.dateFormat = "EEE, MMM,dd"
         let hourformatter = DateFormatter()
         hourformatter.dateFormat = "h:mm a"
-        datelbl.text = dateformatter.string(from: date)
-        timelbl.text = hourformatter.string(from: date)
+        datelbl.text = "created On: \(dateformatter.string(from: date))"
+        timelbl.text = "time: \(hourformatter.string(from: date))"
+        
+        
+    }
+    
+    func converteditDate(date : Date) {
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "EEE, MMM,dd"
+        let hourformatter = DateFormatter()
+        hourformatter.dateFormat = "h:mm a"
+        editdatelbl.text = "last edidted: \(dateformatter.string(from: date))"
+        edittimelbl.text = "time: \(hourformatter.string(from: date))"
+        
         
     }
     
@@ -181,15 +242,21 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
     
     @IBAction func recordAction(_ sender: UIButton) {
-        
+
+        audioFilename = getDocumentsDirectory().appendingPathComponent("\(titletxt.text!).m4a")
         if recordLbl.titleLabel?.text == "Record" {
+             
+            print(" created file \(audioFilename!)")
             startRecording()
+            
+            
         }else if recordLbl.titleLabel?.text == "Stop"{
             finishRecording(success: true)
         }else if recordLbl.titleLabel?.text == "Play"{
             do{
-                player = try AVAudioPlayer(contentsOf: recordUrl!)
-                player?.play()
+                
+                player = try AVAudioPlayer(contentsOf: audioFilename!)
+                player!.play()
             }catch{
                 print("not played")
             }
@@ -198,9 +265,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 
     }
     func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("\(titletxt.text).m4a")
-        recordUrl = audioFilename
-        print("recording saved with file name \(recordUrl?.absoluteString)")
+         
+//        recordUrl = audioFilename
+//        print("recording saved with file name \(recordUrl?.absoluteString)")
 
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -212,7 +279,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         do {
             
             print("recording started")
-            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: audioFilename!, settings: settings)
             audioRecorder.delegate = self
             audioRecorder.record()
             
@@ -227,6 +294,13 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+//        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        if documentPath.count > 0 {
+//            let documentDirectory = documentPath[0]
+//            let filePath = documentDirectory.appending("/book.txt")
+//            return filePath
+//        }
+//        return ""
     }
     
     
