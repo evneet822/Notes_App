@@ -34,8 +34,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         mapview.setRegion(region, animated: true)
         
         let annotation = MKPointAnnotation()
-        annotation.title = "brampton City"
-        annotation.subtitle = "City of Dreams"
+        annotation.title = "Note saved"
         annotation.coordinate = location
         mapview.addAnnotation(annotation)
         

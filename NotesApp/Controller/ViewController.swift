@@ -213,11 +213,28 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 
     @IBAction func chooseImage(_ sender: UIButton) {
         
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-        }
+        let alert = UIAlertController(title: "Photo Source", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = .camera
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }else{
+                print("no camera")
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action) in
+             if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = .photoLibrary
+                self.present(self.imagePicker, animated: true, completion: nil)
+                   }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+       
     }
     
     func convertDate(date : Date) {
