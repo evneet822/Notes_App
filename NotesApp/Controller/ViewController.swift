@@ -139,7 +139,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //                        noteDetail = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: createdDate!, image: imageSelected!)
                         
                         noteDetail = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: createdDate!, image: imageSelected!, editdate: Date())
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
                     }else{
                     noteDetail = Note(title: title!, desc: desc!, latitude: lat!, longitude: long!, date: Date(), image: imageSelected!)
                         CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(noteDetail!)
@@ -156,7 +156,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //                        noteDetail = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: createdDate!, record: audioFilename!);
                         
                        noteDetail = Note(title: t!, desc: d!, latitude: lat!, longitude: long!, date: createdDate!, record: audioFilename!, editdate: Date())
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
                         
                         
                     }else{
@@ -176,7 +176,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //                        noteDetail = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: createdDate!)
                         
                         noteDetail = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: createdDate!, editdate: Date())
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
                     }else{
                          noteDetail = Note(title: t1!, desc: d1!, latitude: lat!, longitude: long!, date: Date())
                         CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes.append(noteDetail!)
@@ -196,7 +196,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
                         
                         noteDetail = Note(title: tt!, desc: dd!, image: imageSelected!, latitude: lat!, longitude: long!, date: createdDate!, recordedUrl: audioFilename!, editdate: Date())
                         
-                        CategoryModel.categoryData[notesDelegate!.notesSelectedIndex].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
+                        CategoryModel.categoryData[notesDelegate!.notesCurrentIndx].notes[notesDelegate!.notesSelectedIndex] = noteDetail!
                         
                     }else{
                         
