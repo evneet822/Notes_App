@@ -57,7 +57,7 @@ class CategoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell")
         let name = CategoryModel.categoryData[indexPath.row].title
         cell?.textLabel?.text = name
-        cell?.detailTextLabel?.text = "notes \(CategoryModel.categoryData[indexPath.row].notes.count)"
+        cell?.detailTextLabel?.text = "notes: \(CategoryModel.categoryData[indexPath.row].notes.count)"
 
         // Configure the cell...
 
@@ -66,9 +66,28 @@ class CategoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, sucess) in
-            CategoryModel.categoryData.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+           
             
+            
+            let name = CategoryModel.categoryData[indexPath.row].title
+             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoryEntity")
+            request.predicate = NSPredicate(format: "categoryName contains %@", name)
+            request.returnsObjectsAsFaults = false
+            do{
+                let results = try self.contextEnity?.fetch(request)
+                for result in results as! [NSManagedObject]{
+                    self.contextEnity?.delete(result)
+                }
+            }catch{
+                print(error)
+            }
+            do{
+                try self.contextEnity?.save()
+            }catch{
+                print(error)
+            }
+             CategoryModel.categoryData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -233,6 +252,7 @@ class CategoryTableViewController: UITableViewController {
                             for result  in fetchresult as! [NSManagedObject]{
                                 var n : Note
 //                                var nurl : URL?
+//                                let rname = result.value(forKey: "noteCategory") as! String
                                 let nName = result.value(forKey: "notesTitle") as! String
                                 let ndesc = result.value(forKey: "notesDesc") as! String
                                 let ndate = result.value(forKey: "date") as! Date
