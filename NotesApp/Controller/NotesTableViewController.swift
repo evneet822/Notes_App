@@ -256,5 +256,10 @@ class NotesTableViewController: UITableViewController,UISearchResultsUpdating {
 //               currentIndex = -1
 //
 //         }
+    
+    @IBAction func unwindToview(_ unwindSegue: UIStoryboardSegue) {
+           let sourceViewController = unwindSegue.source
+           // Use data from the view controller which initiated the unwind segue
+       }
 
 }

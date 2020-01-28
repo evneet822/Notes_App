@@ -271,6 +271,7 @@
                                 </state>
                                 <connections>
                                     <action selector="saveNote:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lza-T8-rBj"/>
+                                    <segue destination="bt1-bl-TNG" kind="unwind" unwindAction="unwindToview:" id="deg-uh-pQQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="425-oQ-Uzp">
@@ -369,6 +370,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="bt1-bl-TNG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2189.5999999999999" y="132.68365817091455"/>
         </scene>
@@ -390,7 +392,7 @@
                                     <constraint firstAttribute="width" constant="40" id="cYo-7A-RNO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="show route" image="direction"/>
+                                <state key="normal" title="show route" image="directions1"/>
                                 <connections>
                                     <action selector="route:" destination="oR3-Mo-fuj" eventType="touchUpInside" id="NpP-BU-abL"/>
                                 </connections>
@@ -418,7 +420,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="direction" width="224" height="224"/>
+        <image name="directions1" width="225" height="225"/>
         <image name="folder.circle.fill" catalog="system" width="64" height="60"/>
         <image name="man" width="225" height="225"/>
         <image name="paperplane.fill" catalog="system" width="64" height="60"/>

@@ -88,6 +88,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         counterlbl.text = "\(counter)"
         minslbl.text = "\(mins)."
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        view.addGestureRecognizer(tap)
+        
     }
     
     
@@ -352,7 +355,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         }
         
     }
+    @objc func tapped() {
+        titletxt.resignFirstResponder()
+        desctxt.resignFirstResponder()
+    }
     
+   
    
 }
 

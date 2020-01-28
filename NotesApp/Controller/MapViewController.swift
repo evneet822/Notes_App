@@ -32,6 +32,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
         destination = location
         let region = MKCoordinateRegion(center: location, span: span)
         mapview.setRegion(region, animated: true)
+        mapview.delegate = self
         
         let annotation = MKPointAnnotation()
         annotation.title = "Note saved"
@@ -50,18 +51,18 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
 
     }
 
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-
-        print("renderer")
-
-
-            let renderer = MKPolylineRenderer(overlay: overlay)
-            renderer.strokeColor = UIColor.red
-            renderer.lineWidth = 4.0
-
-                       return renderer
-
-    }
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//
+//        print("renderer")
+//
+//
+//            let renderer = MKPolylineRenderer(overlay: overlay)
+//            renderer.strokeColor = UIColor.red
+//            renderer.lineWidth = 4.0
+//
+//                       return renderer
+//
+//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         detailDelegate?.objectSelected = true
@@ -90,7 +91,10 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
 
     @IBAction func route(_ sender: UIButton) {
         
+        print("show route")
+        
         let source = usersource
+//        let source = CLLocationCoordinate2D(latitude: 43.683334, longitude: -79.766670)
         //
         //
                                       let sourceplacemark = MKPlacemark(coordinate: source!)
@@ -122,15 +126,29 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDel
                                            print("in calculate")
 
                                            let route = response.routes[0]
-                                        self.mapview.addOverlay((route.polyline))
-                //                           self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+//                                        let ov = route.polyline
+                                        self.mapview.addOverlay(route.polyline)
+//                                        self.mapview.addOverlay((route.polyline))
+//                                           self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
                                            print("add overlay")
 
-                                           let rect = route.polyline.boundingMapRect
-                                           self.mapview.setRegion(MKCoordinateRegion(rect), animated: true)
-                                           print("set region")
+//                                           let rect = route.polyline.boundingMapRect
+//                                           self.mapview.setRegion(MKCoordinateRegion(rect), animated: true)
+//                                           print("set region")
 
                                        }
 
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        print("renderer")
+        if overlay is MKPolyline{
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = .red
+        renderer.lineWidth = 4.0
+        return renderer
+        }
+    return MKOverlayRenderer()
     }
 }
