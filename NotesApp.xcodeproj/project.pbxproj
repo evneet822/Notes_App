@@ -20,6 +20,7 @@
 		42437DB823D9516800E29B61 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437DB723D9516800E29B61 /* CategoryTableViewController.swift */; };
 		42437DBA23D95D1F00E29B61 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42437DB923D95D1F00E29B61 /* NotesTableViewController.swift */; };
 		4282BFC123E0D5AA007116FF /* MoveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4282BFC023E0D5AA007116FF /* MoveViewController.swift */; };
+		8C04DCB923E1025C00E0087B /* notes logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8C04DCB823E1025C00E0087B /* notes logo.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		42437DB723D9516800E29B61 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		42437DB923D95D1F00E29B61 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		4282BFC023E0D5AA007116FF /* MoveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveViewController.swift; sourceTree = "<group>"; };
+		8C04DCB823E1025C00E0087B /* notes logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "notes logo.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				42437DA223D9480900E29B61 /* Assets.xcassets */,
 				42437DA423D9480900E29B61 /* LaunchScreen.storyboard */,
 				42437DA723D9480900E29B61 /* Info.plist */,
+				8C04DCB823E1025C00E0087B /* notes logo.jpg */,
 			);
 			path = NotesApp;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				42437DA623D9480900E29B61 /* LaunchScreen.storyboard in Resources */,
 				42437DA323D9480900E29B61 /* Assets.xcassets in Resources */,
 				42437D9E23D9480700E29B61 /* Main.storyboard in Resources */,
+				8C04DCB923E1025C00E0087B /* notes logo.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
